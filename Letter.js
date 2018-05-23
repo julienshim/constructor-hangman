@@ -10,16 +10,17 @@ var Letter = function(character) {
     this.showLetter = function(){
         if (this.isCorrectlyGuessed){
             return this.character + " ";
-        } else if {
+        } else if (character === " ") { //accounts for spaces
+            return "   ";
+        } else {
             return "_ ";
         }
     }
     // A function that takes a character as an argument and checks it against the underlying character, updating the stored boolean value to true if it was guessed correctly
 
     this.guessedLetterCheck = function(characterGuessed){
-        if (characterGuessed === this.character){
+        if (characterGuessed.toUpperCase() === this.character.toUpperCase()){ //Case-insensitive comparison
             this.isCorrectlyGuessed = true;    
-        } else {
         }
     }
 }
