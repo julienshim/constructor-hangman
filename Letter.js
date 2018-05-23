@@ -6,21 +6,22 @@ var Letter = function(character) {
     //A boolean value that stores wehther the letter has been guessed yet
     this.isCorrectlyGuessed = false;
 
-    //A function that returns the underlying character if the letter has been guessed (like an underscore) if the letter has not been guessed.
+    //A function that returns the underlying character if the letter has been guessed, or a placeholder (like an underscore) if the letter has not been guessed
     this.showLetter = function(){
         if (this.isCorrectlyGuessed){
-            console.log(this.character);
-        } else {
-            console.log("_");
+            return this.character + " ";
+        } else if {
+            return "_ ";
         }
     }
-//A function that takes a letter as an argument and checks it against the underlying character, updating the stored boolean value to true if it was guessed correctly.
+    // A function that takes a character as an argument and checks it against the underlying character, updating the stored boolean value to true if it was guessed correctly
 
-HUH?
-
+    this.guessedLetterCheck = function(characterGuessed){
+        if (characterGuessed === this.character){
+            this.isCorrectlyGuessed = true;    
+        } else {
+        }
+    }
 }
 
-
-var a = new Letter("a");
-a.isCorrectlyGuessed = true;
-a.showLetter("a");
+module.exports = Letter;
