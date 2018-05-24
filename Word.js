@@ -15,17 +15,21 @@ var Word = function(chicken) {
     this.displayWord = function() {
         var string = "";
         for (var i = 0; i < this.letterArr.length; i++) {
-            string = string += this.letterArr[i].showLetter();
+            string = string += this.letterArr[i].displayLetter();
         }
         return string;
     }
 
     //A function that takes a character as an argument and calls the guess function on each letter object (the second function defined in `Letter.js`)
-    
-    this.chicken = function(chicken) {
+
+    this.lettersCheck = function(letter) {
+        isCorrect = false;
         for (var i = 0; i < this.letterArr.length; i++) {
-            this.letterArr[i].guessedLetterCheck(chicken);
+            if(this.letterArr[i].guessedCheck(letter)){
+                isCorrect = true;
+            }
         }
+        return isCorrect;
     }
 }
 

@@ -4,23 +4,24 @@ var Letter = function(character) {
     this.character = character;
 
     //A boolean value that stores wehther the letter has been guessed yet
-    this.isCorrectlyGuessed = false;
+    this.isGuessed = false;
 
     //A function that returns the underlying character if the letter has been guessed, or a placeholder (like an underscore) if the letter has not been guessed
-    this.showLetter = function(){
-        if (this.isCorrectlyGuessed){
+    this.displayLetter = function(){
+        if (this.isGuessed){
             return this.character + " ";
         } else if (character === " ") { //accounts for spaces
-            return "   ";
+            return "  ";
         } else {
             return "_ ";
         }
     }
     // A function that takes a character as an argument and checks it against the underlying character, updating the stored boolean value to true if it was guessed correctly
 
-    this.guessedLetterCheck = function(characterGuessed){
+    this.guessedCheck = function(characterGuessed){
         if (characterGuessed.toUpperCase() === this.character.toUpperCase()){ //Case-insensitive comparison
-            this.isCorrectlyGuessed = true;    
+            this.isGuessed = true;
+            return true;
         }
     }
 }
