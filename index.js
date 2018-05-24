@@ -34,51 +34,96 @@ var NBA = [
 "Washington Wizards"]
 
 var randomWord = new Word(NBA[Math.floor(Math.random() * NBA.length)]);
-
-//To speed up testing:
-randomWord.chicken("r");
-randomWord.chicken("s");
-randomWord.chicken("t");
-randomWord.chicken("l");
-randomWord.chicken("n");
-randomWord.chicken("e");
-randomWord.chicken("a");
-
-
+var guessArray = [];
+var guessesLeft = 10;
 
 
 var userPrompt = function() { 
-    console.log(randomWord.displayWord());
-    if (randomWord.displayWord().includes("_")) {
+    console.log("\n"+randomWord.displayWord()+"\n");
+    if (randomWord.displayWord().includes("_") === false) {
+        result("win");
+    } else {
         function validateUserGuess(input){
-            if(/^[a-zA-Z]/.test(input)){
-                return true;
+            if ( input.length > 1 ) {
+                return "Please input only one letter."
+            } else if( /^[a-zA-Z]/.test(input) ){
+                    return true;
             } else {
                 return "Your guess should be a letter!"
             }
         }
 
-        var questions = [{
-            message: "Pick a letter!",
-            type: "input",
-            name: "userGuess",
-            validate: validateUserGuess
-        }]
-
-        inquirer.prompt(questions).then(answers => {
-        randomWord.chicken(answers.userGuess);
-        userPrompt();
-        });
-    } else {
-        // end game
+        inquirer.prompt(
+            [{
+                message: "Pick a letter!",
+                type: "input",
+                name: "userGuess",
+                validate: validateUserGuess
+            }]
+            ).then(answers => {
+            if ( guessArray.indexOf(answers.userGuess) > -1 ) {
+                console.log("You guessed that letter already!")
+            } else {
+                guessArray.push(answers.userGuess);
+                if (randomWord.lettersCheck(answers.userGuess)) {
+                    console.log("Correct!");
+                } else {
+                    
+                    guessesLeft--;
+                    if(guessesLeft === 0) {
+                        result("lose");
+                    } else {
+                        console.log("Incorrect!");
+                        console.log(`Guesses Left: ${guessesLeft}`);
+                    }
+                    
+                }
+            }
+            userPrompt();
+            });
     }
+}
+
+function result(end){
+    if(end === "win"){
+        console.log("You answered correctly");
+        continuePrompt();
+    } else {
+        console.log("You lose!");
+        continuePrompt();
+    }
+}
+
+function continuePrompt() {
+
+    var questions = 
+    
+    inquirer.prompt([
+        {
+        message: "You answered correctly! Play again?",
+        type: "input",
+        name: "userConfirm"
+        }
+        ]).then(answers => {
+                if(answers.userConfirm === "y") {
+                    guessArray = [];
+                    guessesLeft = 10;
+                    randomWord = new Word(NBA[Math.floor(Math.random() * NBA.length)]);
+                    userPrompt();
+                } else {
+                    return false;
+                }
+            });
 
 }
 
+console.log(`
+╔╗╔╔╗ ╔═╗            
+║║║╠╩╗╠═╣            
+╝╚╝╚═╝╩ ╩            
+╦ ╦╔═╗╔╗╔╔═╗╔╦╗╔═╗╔╗╔
+╠═╣╠═╣║║║║ ╦║║║╠═╣║║║
+╩ ╩╩ ╩╝╚╝╚═╝╩ ╩╩ ╩╝╚╝
+`);
+
 userPrompt();
-
-//The file containing the logic for the course of the game, which depends on `Word.js` and:
-
-// Randomly selections word and uses the `Word` constructor to store it.
-
-//Prompts the user for each guess and keeps track of user's remaining gueses.
