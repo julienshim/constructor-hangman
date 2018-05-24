@@ -45,14 +45,13 @@ var userPrompt = function() {
     } else {
         function validateUserGuess(input){
             if ( input.length > 1 ) {
-                return "Please input only one letter."
+                return "Please enter a single letter." //If more than one input
             } else if( /^[a-zA-Z]/.test(input) ){
                     return true;
             } else {
-                return "Your guess should be a letter!"
+                return "Please enter a letter." //If not a letter.
             }
         }
-
         inquirer.prompt(
             [{
                 message: "Pick a letter!",
@@ -62,21 +61,18 @@ var userPrompt = function() {
             }]
             ).then(answers => {
             if ( guessArray.indexOf(answers.userGuess) > -1 ) {
-                console.log("You guessed that letter already!")
+                console.log("You already guess that letter.")
             } else {
-                guessArray.push(answers.userGuess);
+                guessArray.push(answers.userGuess.toLowerCase());
                 if (randomWord.lettersCheck(answers.userGuess)) {
-                    console.log("Correct!");
+                    statusDisplay("Correct!");
                 } else {
-                    
                     guessesLeft--;
                     if(guessesLeft === 0) {
                         result("lose");
                     } else {
-                        console.log("Incorrect!");
-                        console.log(`Guesses Left: ${guessesLeft}`);
+                        statusDisplay("Wrong! Try again.");
                     }
-                    
                 }
             }
             userPrompt();
@@ -84,34 +80,42 @@ var userPrompt = function() {
     }
 }
 
+function statusDisplay(guessFeedback){
+    console.log(`\n${guessFeedback}`);
+    console.log(`Guesses Left: ${guessesLeft}`);
+    console.log(`Guesses made: ${guessArray.join(', ')}`);
+}
+
 function result(end){
     if(end === "win"){
-        console.log("You answered correctly");
-        continuePrompt();
+        continuePrompt("Congratualations! You got it right!");
     } else {
-        console.log("You lose!");
-        continuePrompt();
+        continuePrompt("You didn't get it right, but it was a great effort!");
     }
 }
 
-function continuePrompt() {
-
-    var questions = 
-    
+function continuePrompt(endMessage) {
     inquirer.prompt([
         {
-        message: "You answered correctly! Play again?",
-        type: "input",
+        message: `${endMessage} Play again?"`,
+        type: "confirm",
         name: "userConfirm"
         }
         ]).then(answers => {
-                if(answers.userConfirm === "y") {
+                if(answers.userConfirm === true) {
                     guessArray = [];
                     guessesLeft = 10;
                     randomWord = new Word(NBA[Math.floor(Math.random() * NBA.length)]);
+
+// This is spaced this way because the ticks are white space sensitive.
+console.log(`
+/////////////////////
+/     Next Team     /
+/////////////////////
+`);
                     userPrompt();
                 } else {
-                    return false;
+                    console.log("Thanks for playing!")
                 }
             });
 
