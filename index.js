@@ -42,6 +42,8 @@ var userPrompt = function() {
     console.log("\n"+randomWord.displayWord()+"\n");
     if (randomWord.displayWord().includes("_") === false) {
         result("win");
+    } else if(guessesLeft === 0) {
+        result("lose");
     } else {
         function validateUserGuess(input){
             if ( input.length > 1 ) {
@@ -68,11 +70,7 @@ var userPrompt = function() {
                     statusDisplay("Correct!");
                 } else {
                     guessesLeft--;
-                    if(guessesLeft === 0) {
-                        result("lose");
-                    } else {
-                        statusDisplay("Wrong! Try again.");
-                    }
+                    statusDisplay("Wrong! Try again.");
                 }
             }
             userPrompt();
@@ -88,7 +86,7 @@ function statusDisplay(guessFeedback){
 
 function result(end){
     if(end === "win"){
-        continuePrompt("Congratualations! You got it right!");
+        continuePrompt("Congratulations! You got it right!");
     } else {
         continuePrompt("You didn't get it right, but it was a great effort!");
     }
@@ -115,7 +113,7 @@ console.log(`
 `);
                     userPrompt();
                 } else {
-                    console.log("Thanks for playing!")
+                    console.log("\nThanks for playing!\n")
                 }
             });
 
