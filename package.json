@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jerauld/constructor-hangman.git"
+    "url": "git+https://github.com/julienshim/constructor-hangman.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jerauld/constructor-hangman/issues"
+    "url": "https://github.com/julienshim/constructor-hangman/issues"
   },
-  "homepage": "https://github.com/jerauld/constructor-hangman#readme",
+  "homepage": "https://github.com/julienshim/constructor-hangman#readme",
   "dependencies": {
     "inquirer": "^5.2.0"
   }
