@@ -1,4 +1,4 @@
-# constructor-hangman
+# NBA Hangman
 
 **Overview**
 
