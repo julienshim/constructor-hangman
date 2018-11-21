@@ -10,6 +10,12 @@ NBA Hangman was created for optional Advanced JavaScript: Constructor Hangman ho
 
 -npm install inquirer
 
+Run `node index.js` to start playing.
+
+**Demo GIF**
+
+<img src="https://raw.githubusercontent.com/julienshim/constructor-hangman/master/demo.gif" width="500" />
+
 **Requirements**
 
 - The completed game should be able to receive user input using the `inquirer` or `prompt` npm packages.
