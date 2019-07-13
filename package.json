@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/julienshim/constructor-hangman#readme",
   "dependencies": {
-    "inquirer": "^6.2.2"
+    "inquirer": "^6.5.0"
   }
 }
